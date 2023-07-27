@@ -28,6 +28,7 @@ def get_amazon_product_data(url):
             "about_section": about_text,
             "top_10_comments": top_10_comments
         }
+    
     else:
         print("Failed to retrieve data. Status code:", response.status_code)
         return None
