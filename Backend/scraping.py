@@ -20,13 +20,13 @@ def get_amazon_product_data(url):
             about_text = "\n".join([item.get_text().strip() for item in about_section.find_all("li")])
 
         # Scrape top 10 comments
-        top_10_comments = soup.select("div[data-hook='review-collapsed']")
-        top_10_comments = [comment.get_text().strip() for comment in top_10_comments[:10]]
+        top_comments = soup.select("div[data-hook='review-collapsed']")
+        top_comments = [comment.get_text().strip() for comment in top_comments[:50]]
 
         return {
             "product_title": product_title,
             "about_section": about_text,
-            "top_10_comments": top_10_comments
+            "top_10_comments": top_comments
         }
     
     else:
