@@ -1,18 +1,30 @@
 <!DOCTYPE html>
-
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Dad Jokes</title>
+    <script src="popup.js"></script>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      width: 300px;
+      height: 200px;
+      margin: 0;
+      padding: 10px;
+      font-family: Arial, sans-serif;
+    }
+    #status {
+      color: green;
+      font-weight: bold;
+    }
+    #error {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-
-    <h2 id="p_name" ></h2>
-    <p id="p_summery"></p>
-    <script src="script.js"></script>
-    
+  <h1>Web Scraper</h1>
+  <p id="status"></p>
+  <p id="error"></p>
+  
 </body>
 </html>

@@ -1,15 +1,11 @@
 $apiUrl = "http://127.0.0.1:5000/scrape"
 
-$jsonData = @{              
->>     "website_link" = "https://amzn.eu/d/090OYp3"  # Replace with the actual website link
->> } | ConvertTo-Json
+$jsonData = @{"website_link" = "https://amzn.eu/d/090OYp3"} | ConvertTo-Json
 
- $headers = @{               
->>     "Content-Type" = "application/json"
->> }
+$headers = @{"Content-Type" = "application/json"}
 
 $response = Invoke-WebRequest -Uri $apiUrl -Method Post -Body $jsonData -Headers $headers
 
- $responseContent = $response.Content
+$responseContent = $response.Content
 
- Write-Host $responseContent 
+Write-Host $responseContent >> test.json
