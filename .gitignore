@@ -2112,3 +2112,8 @@ Backend/.env/Scripts/python_d.exe
 Backend/.env/Scripts/python.exe
 Backend/.env/Scripts/pythonw_d.exe
 Backend/.env/Scripts/pythonw.exe
+Backend/__pycache__/scraping.cpython-311.pyc
+.gitignore
+Backend/test.json
+.gitignore
+.gitignore
