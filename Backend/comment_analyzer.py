@@ -13,6 +13,7 @@ class model():
         try:
             self.model = AutoModelForSequenceClassification.from_pretrained("./model")
         except:
+            print("Error model not found.")
             print("Downloading model...")
             os.system("git clone https://huggingface.co/Sarwar242/autotrain-fake-reviews-labelling-37433101195")
             os.rename("autotrain-fake-reviews-labelling-37433101195", "model")
