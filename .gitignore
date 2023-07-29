@@ -2115,5 +2115,7 @@ Backend/.env/Scripts/pythonw.exe
 Backend/__pycache__/scraping.cpython-311.pyc
 .gitignore
 Backend/test.json
+Backend/model
+Backend/autotrain-fake-reviews-labelling-37433101195
 .gitignore
 .gitignore
