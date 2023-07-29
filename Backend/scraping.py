@@ -8,7 +8,7 @@ def get_amazon_product_data(url):
 
     if response.status_code == 200:
         soup = BeautifulSoup(response.content, "html.parser")
-
+        
         # Scrape product title(1)
         product_title = soup.select_one("span#productTitle")
         if product_title:
@@ -28,15 +28,19 @@ def get_amazon_product_data(url):
                    
         #Scrape Technical Details:(3)
         Technical_Details={}
-        Technical_Details_table = soup.find('table', class_='a-keyvalue')
+        Technical_Details_table = soup.find("table", {"id": "productDetails_techSpec_section_1"})
         if Technical_Details_table:
             rows = Technical_Details_table.find_all('tr')
             for row in rows:
                 cells = row.find_all(['th', 'td'])
-                if len(cells) == 2:
-                    key = cells[0].text.strip()
-                    value = cells[1].text.strip()
-                    Technical_Details[key] = value
+                key = cells[0].text.strip()
+                value = cells[1].text.strip()
+                Technical_Details[key] = value
+                Technical_Details[key] = Technical_Details[key].replace('\u200e', '')
+            
+            #Printing Technical_Details to determine whether issue #1 has been successfully fixed
+            print("Technical_Details:",Technical_Details)
+
 
         # Scrape "About this item" section(4)
         about_section = soup.select_one("div#feature-bullets ul")
