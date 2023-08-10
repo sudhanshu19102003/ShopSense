@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json())
         .then(result => {
             // Displaying the result in the paragraph with id "status"
-            document.getElementById("status").innerText = JSON.stringify(result);
+            document.getElementById("title").innerText = JSON.stringify(result["product_title"]);
         })
         .catch(error => {
             document.getElementById("status").innerText = "Error: " + error.message;
