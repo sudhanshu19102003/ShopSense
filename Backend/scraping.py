@@ -1,5 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
+import title
+
 
 def get_amazon_product_data(url):
     headers = {
@@ -12,7 +14,7 @@ def get_amazon_product_data(url):
         # Scrape product title(1)
         product_title = soup.select_one("span#productTitle")
         if product_title:
-            product_title = product_title.get_text()
+            product_title = title.generate_title(product_title.get_text())
         
         #Scrape product version selection(2)
         product_v = {}
@@ -46,6 +48,8 @@ def get_amazon_product_data(url):
         about_section = soup.select_one("div#feature-bullets ul")
         if about_section:
             about_text = "\n".join([item.get_text().strip() for item in about_section.find_all("li")])
+        else:
+            about_text=""
 
         # Scrape top comments(5)
         top_comments = soup.select("div[data-hook='review-collapsed']")
