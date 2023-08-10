@@ -12,7 +12,7 @@ def get_amazon_product_data(url):
         # Scrape product title(1)
         product_title = soup.select_one("span#productTitle")
         if product_title:
-            product_title = product_title.get_text().strip()
+            product_title = product_title.get_text()
         
         #Scrape product version selection(2)
         product_v = {}
@@ -53,7 +53,7 @@ def get_amazon_product_data(url):
 
         return {
             "product_title": product_title,
-            "product_title": product_v,
+            "product_V": product_v,
             "about_section": about_text,
             "technical_details": Technical_Details,
             "top_comments": top_comments
