@@ -19,9 +19,13 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(result => {
             // Displaying the result in the paragraph with id "status"
             document.getElementById("title").innerText = JSON.stringify(result["product_title"]);
+            document.getElementById("summary").innerText = JSON.stringify(result["product_description"]);
+
         })
         .catch(error => {
             document.getElementById("status").innerText = "Error: " + error.message;
         });
     });
 });
+
+  
