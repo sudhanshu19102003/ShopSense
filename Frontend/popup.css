@@ -86,7 +86,7 @@ body {
   box-sizing: border-box;
   border-width: 40px; /* Set the border width */
   border-style: solid; /* Set the border style to solid */
-  border-color: #6a546d; /* Initially, set the border color to transparent */
+  border-color: #dedbde; /* Initially, set the border color to transparent */
 }
 
 /* Apply styles to the summary content */
