@@ -2,3 +2,4 @@ Backend/.env/
 Backend/__pycache__/
 Backend/promts/creater.py
 model V2/
+Backend/env

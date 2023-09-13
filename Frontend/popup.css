@@ -2,10 +2,11 @@ body {
   background-color: #1e1e1e; /* Dark background color */
   color: #fff; /* Text color */
   font-family: Arial, sans-serif; /* Choose an appropriate font-family */
-  width: 360px;
+  width: 355px;
   height: 600px;
   margin: 0; /* Remove default margin */
   padding: 0; /* Remove default padding */
+  overflow-x: hidden;
 }
 
 /* Apply styles to the title */
@@ -102,4 +103,26 @@ body {
   border: 1px solid #555; /* Darker border color */
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+/* input  */
+.inputfield {
+  padding: 10px;
+  width: 70%;
+  border-radius: 30px;
+  background: #3f263f;
+  opacity: 80%;  
+}
+
+.input-container {
+  height: auto;
+  background-color: #444;
+  padding: 10px;
+  border: 1px solid #555;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  bottom: 0; /* This will fix it at the bottom */
+  width: 100%; /* To make it span the entire width */
 }
