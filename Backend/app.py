@@ -19,6 +19,9 @@ def scrape_website():
     try:
        
         output = scraping.get_amazon_product_data(website_link)
+        print(type(output["top_comments"]))
+        print(len(output["top_comments"]))
+
         return jsonify(output), 200
 
     except requests.exceptions.MissingSchema:

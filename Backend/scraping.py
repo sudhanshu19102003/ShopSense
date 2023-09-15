@@ -59,7 +59,7 @@ def get_amazon_product_data(url):
         # Scrape top comments(5)
         top_comments = soup.select("div[data-hook='review-collapsed']")
         if top_comments:
-            top_comments = [comment.get_text().strip() for comment in top_comments[:50]]
+            top_comments = [comment.get_text().strip() for comment in top_comments[:10]]
         else:
             print("no_top_comments")
         
