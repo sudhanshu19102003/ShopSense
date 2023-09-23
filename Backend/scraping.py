@@ -1,11 +1,14 @@
 import requests
 from bs4 import BeautifulSoup
 import title
+from urllib.parse import urlparse, urlunparse
+
 
 
 def get_amazon_product_data(url):
+    url=shorten_amazon_url(url)
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"}
+        "User-Agent": "Mozilla/5.0 (X11; Linux i686; rv:10.0) Gecko/20100101 Firefox/33.0"}
     response = requests.get(url, headers=headers)
 
     if response.status_code == 200:
@@ -26,6 +29,8 @@ def get_amazon_product_data(url):
                     key = cells[0].text.strip()
                     value = cells[1].text.strip()
                     product_v[key] = value
+        else:
+            print("no_product version")
 
                    
         #Scrape Technical Details:(3)
@@ -39,9 +44,8 @@ def get_amazon_product_data(url):
                 value = cells[1].text.strip()
                 Technical_Details[key] = value
                 Technical_Details[key] = Technical_Details[key].replace('\u200e', '')
-            
-            #Printing Technical_Details to determine whether issue #1 has been successfully fixed
-            print("Technical_Details:",Technical_Details)
+        else:
+            print("no_Technical_Details")            
 
 
         # Scrape "About this item" section(4)
@@ -50,19 +54,39 @@ def get_amazon_product_data(url):
             about_text = "\n".join([item.get_text().strip() for item in about_section.find_all("li")])
         else:
             about_text=""
+            print("no_about_text")
 
         # Scrape top comments(5)
         top_comments = soup.select("div[data-hook='review-collapsed']")
-        top_comments = [comment.get_text().strip() for comment in top_comments[:50]]
+        if top_comments:
+            top_comments = [comment.get_text().strip() for comment in top_comments[:10]]
+        else:
+            print("no_top_comments")
+        
+        # Find the div element with id="productDescription"(6)
+        product_description_div = soup.find('div', id='productDescription')
+
+        product_description = None
+        if product_description_div:
+            product_description = product_description_div.text
+        else:
+            print("no_product_description")
 
         return {
             "product_title": product_title,
             "product_V": product_v,
             "about_section": about_text,
             "technical_details": Technical_Details,
-            "top_comments": top_comments
+            "top_comments": top_comments,
+            "product_description": product_description
         }
     
     else:
         print("Failed to retrieve data. Status code:", response.status_code)
         return None
+    
+def shorten_amazon_url(original_url):
+    parsed_url = urlparse(original_url)
+    path_segments = parsed_url.path.split('/')
+    shortened_path = '/'.join(path_segments[:4])  # Keep the first 4 path segments
+    return urlunparse((parsed_url.scheme, parsed_url.netloc, shortened_path, '', '', ''))
