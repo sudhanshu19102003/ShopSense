@@ -17,7 +17,7 @@ def get_amazon_product_data(url):
         soup = BeautifulSoup(response.content, "html.parser")
         
         # Scrape product title(1)
-        product_title = soup.select_one("span#productTitle")
+        product_title = soup.select_one("span#productTitle").get_text(strip=True)
         if product_title:
             product_title = title.generate_title(product_title.get_text())
             print(product_title)
@@ -71,7 +71,7 @@ def get_amazon_product_data(url):
 
         product_description = None
         if product_description_div:
-            product_description = product_description_div.text
+            product_description = product_description_div.get_text(strip=True)
         else:
             print("no_product_description")
 
