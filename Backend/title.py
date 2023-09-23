@@ -1,6 +1,6 @@
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 
-def generate_product_title(question, context):
+def answer(question, context):
     # Load the pre-trained model and tokenizer
     tokenizer = T5Tokenizer.from_pretrained("google/flan-t5-base")
     model = T5ForConditionalGeneration.from_pretrained("google/flan-t5-base")
@@ -16,3 +16,7 @@ def generate_product_title(question, context):
     answer = tokenizer.decode(outputs[0])
 
     return answer
+
+def generate_title(text):
+    question="give an short title"
+    answer(question, text)

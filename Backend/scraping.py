@@ -6,10 +6,12 @@ from urllib.parse import urlparse, urlunparse
 
 
 def get_amazon_product_data(url):
-    url=shorten_amazon_url(url)
+    #url=shorten_amazon_url(url)
     headers = {
-        "User-Agent": "Mozilla/5.0 (X11; Linux i686; rv:10.0) Gecko/20100101 Firefox/33.0"}
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"}
+
     response = requests.get(url, headers=headers)
+    print(response)
 
     if response.status_code == 200:
         soup = BeautifulSoup(response.content, "html.parser")
@@ -18,6 +20,7 @@ def get_amazon_product_data(url):
         product_title = soup.select_one("span#productTitle")
         if product_title:
             product_title = title.generate_title(product_title.get_text())
+            print(product_title)
         
         #Scrape product version selection(2)
         product_v = {}
