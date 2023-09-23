@@ -1,18 +1,8 @@
 import requests
 import json
 
-def analyze_reviews_and_get_average(reviews, model_url):
-    """
-    Analyzes a list of reviews using a machine learning model served by TensorFlow Serving
-    and returns the average of the model's predictions.
-
-    Args:
-    - reviews (list): A list of review texts.
-    - model_url (str): The URL of the TensorFlow Serving model's RESTful API endpoint.
-
-    Returns:
-    - float: The average of the model's predictions.
-    """
+def analyze_reviews_and_get_average(reviews):
+    model_url=""
     try:
         # Create a request payload
         payload = {"inputs": reviews}
