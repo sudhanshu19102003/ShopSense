@@ -1,8 +1,11 @@
 from flask import Flask, request, jsonify
 import requests
 import scraping
+from flask_cors import CORS
+
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for your Flask app
 
 @app.route('/scrape', methods=['POST'])
 def scrape_website():
@@ -16,8 +19,6 @@ def scrape_website():
     try:
        
         output = scraping.get_amazon_product_data(website_link)
-        print(type(output["top_comments"]))
-        print(len(output["top_comments"]))
 
         return jsonify(output), 200
 

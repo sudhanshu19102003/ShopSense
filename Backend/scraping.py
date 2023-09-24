@@ -1,12 +1,12 @@
 import requests
 from bs4 import BeautifulSoup
-import title
+from Backend.llm import generate_title,summarizer
 from urllib.parse import urlparse, urlunparse
 
 
 
 def get_amazon_product_data(url):
-    #url=shorten_amazon_url(url)
+    url=shorten_amazon_url(url)
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"}
 
@@ -19,7 +19,6 @@ def get_amazon_product_data(url):
         # Scrape product title(1)
         product_title = soup.select_one("span#productTitle").get_text(strip=True)
         if product_title:
-            product_title = title.generate_title(product_title.get_text())
             print(product_title)
         
         #Scrape product version selection(2)
@@ -74,14 +73,18 @@ def get_amazon_product_data(url):
             product_description = product_description_div.get_text(strip=True)
         else:
             print("no_product_description")
-
-        return {
+        data={
             "product_title": product_title,
+            "about_section": about_text,
+            "product_description": product_description
+        }
+        return {
+            "product_title": generate_title(data),
             "product_V": product_v,
             "about_section": about_text,
             "technical_details": Technical_Details,
             "top_comments": top_comments,
-            "product_description": product_description
+            "product_description": summarizer(data)
         }
     
     else:
