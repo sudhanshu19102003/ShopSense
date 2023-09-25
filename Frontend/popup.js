@@ -18,9 +18,11 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json())
         .then(result => {
             // Displaying the result in the paragraph with id "title"
-            document.getElementById("title").innerText = JSON.stringify(result["product_title"]);
+            document.getElementById("title").innerText = result["product_title"];
             // Displaying the result in the paragraph with id "summary"
-            document.getElementById("summary").innerText = JSON.stringify(result["product_description"]);
+            document.getElementById("summary").innerText = result["product_description"];
+
+            document.getElementById("rating").innerText = result["top_comments"]
         })
         .catch(error => {
             // Handle errors by displaying them in the paragraph with id "status"

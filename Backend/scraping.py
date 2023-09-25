@@ -1,7 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
-from Backend.llm import generate_title,summarizer
+from llm import generate_title,summarizer
 from urllib.parse import urlparse, urlunparse
+from comment_analyzer import predict_average_rating
 
 
 
@@ -18,8 +19,6 @@ def get_amazon_product_data(url):
         
         # Scrape product title(1)
         product_title = soup.select_one("span#productTitle").get_text(strip=True)
-        if product_title:
-            print(product_title)
         
         #Scrape product version selection(2)
         product_v = {}
@@ -64,6 +63,19 @@ def get_amazon_product_data(url):
             top_comments = [comment.get_text().strip() for comment in top_comments[:10]]
         else:
             print("no_top_comments")
+
+        # Scrape ratings
+        ratings = soup.select("i[data-hook='review-star-rating'] span.a-icon-alt")
+        if ratings:
+            ratings = [int(rating.get_text().strip()[0]) for rating in ratings[:10]]
+        else:
+            print("no_ratings")
+
+        if ratings and top_comments:
+            formated_rating = []
+            for comment, rating in zip(top_comments, ratings):
+                formated_rating.append([comment, rating])
+    
         
         # Find the div element with id="productDescription"(6)
         product_description_div = soup.find('div', id='productDescription')
@@ -79,11 +91,11 @@ def get_amazon_product_data(url):
             "product_description": product_description
         }
         return {
-            "product_title": generate_title(data),
+            "product_title": generate_title(product_title),
             "product_V": product_v,
             "about_section": about_text,
             "technical_details": Technical_Details,
-            "top_comments": top_comments,
+            "top_comments": str(predict_average_rating(formated_rating)),
             "product_description": summarizer(data)
         }
     
