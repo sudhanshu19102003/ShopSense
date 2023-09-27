@@ -2,15 +2,13 @@ from transformers import T5Tokenizer, T5ForConditionalGeneration
 from tensorflow import keras
 import tensorflow_text as tf_text
 
-
-
 loaded_model = keras.models.load_model("Backend/model")
 if loaded_model:
     print("\n loaded model \n")
 
 # Load the pre-trained model and tokenizer
-tokenizer = T5Tokenizer.from_pretrained("google/flan-t5-base")
-model = T5ForConditionalGeneration.from_pretrained("google/flan-t5-base")
+tokenizer = T5Tokenizer.from_pretrained("google/flan-t5-small")
+model = T5ForConditionalGeneration.from_pretrained("google/flan-t5-small")
 model.to("cuda")  # Move the model to the GPU if available
 
 def answer(question, context, max_length):

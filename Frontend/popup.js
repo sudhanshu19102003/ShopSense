@@ -15,19 +15,29 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             body: JSON.stringify(data)
         })
-        .then(response => response.json())
-        .then(result => {
-            // Displaying the result in the paragraph with id "title"
-            document.getElementById("title").innerText = result["product_title"];
-            // Displaying the result in the paragraph with id "summary"
-            document.getElementById("summary").innerText = result["product_description"];
+            .then(response => response.json())
+            .then(result => {
+                // Displaying the result in the paragraph with id "title"
+                document.getElementById("title").innerText = result["product_title"];
+                // Displaying the result in the paragraph with id "summary"
+                document.getElementById("summary").innerText = result["product_description"];
 
-            document.getElementById("rating").innerText = result["top_comments"]
-        })
-        .catch(error => {
-            // Handle errors by displaying them in the paragraph with id "status"
-            document.getElementById("error").innerText = "Error in scrapeing: " + error.message;
-        });
+                // Update the rating value
+                const newRating = result["top_comments"];
+                document.getElementById("rating").innerText = newRating;
+
+                // Trigger a custom event to notify other parts of the code about the rating change
+                var ratingEvent = new Event("ratingUpdated");
+                document.getElementById("rating").dispatchEvent(ratingEvent);
+
+                // Trigger the progress bar update
+                var progressBarEvent = new Event("progressBarUpdate");
+                document.dispatchEvent(progressBarEvent);
+            })
+            .catch(error => {
+                // Handle errors by displaying them in the paragraph with id "status"
+                document.getElementById("error").innerText = "Error in scrapeing: " + error.message;
+            });
     });
 
     // Adding an event listener to the "sendButton" element
@@ -54,17 +64,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 },
                 body: JSON.stringify({ input: inputValue }),
             })
-            .then(response => response.json())
-            .then(data => {
-                // Display the server's response in a new div
-                const responseDiv = document.createElement("div");
-                responseDiv.className = "flex-container"
-                responseDiv.textContent = "Server Response: " + data.response;
-                container.appendChild(responseDiv);
-            })
-            .catch(error => {
-                document.getElementById("error").innerText = "Error in chat: " + error.message;
-            });
+                .then(response => response.json())
+                .then(data => {
+                    // Display the server's response in a new div
+                    const responseDiv = document.createElement("div");
+                    responseDiv.className = "flex-container"
+                    responseDiv.textContent = "Server Response: " + data.response;
+                    container.appendChild(responseDiv);
+                })
+                .catch(error => {
+                    document.getElementById("error").innerText = "Error in chat: " + error.message;
+                });
         }
     });
 });

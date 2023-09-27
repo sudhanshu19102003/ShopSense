@@ -1,47 +1,47 @@
 body {
-  background-color: #1e1e1e; /* Dark background color */
-  color: #fff; /* Text color */
-  font-family: Arial, sans-serif; /* Choose an appropriate font-family */
+  background: #2c232b; /* Dark background */
+  font-family: Arial, sans-serif;
   width: 355px;
   height: 600px;
-  margin: 0; /* Remove default margin */
-  padding: 0; /* Remove default padding */
+  margin: 0;
+  padding: 0;
   overflow-x: hidden;
 }
 
-/* Apply styles to the title */
 .title {
   text-align: center;
+  border-radius: 15px;
   margin-bottom: 10px;
-  background-color: #a300cc; /* A user-friendly blue color */
-  height: auto; /* Adjust the height as needed */
-  width: 100%; /* Make it full-width */
-  position: fixed; /* Fix it at the top */
+  background-color: #f700ff; /* Primary Dark Purple */
+  height: 75px;
+  width: 100%;
+  position: fixed;
   top: 0;
   left: 0;
-  z-index: 1000; /* Ensure it's above other content */
-  color: #fff; /* Text color */
+  z-index: 1000;
+  color: #fff;
 }
 
 #title {
+  padding: 10px;
   font-size: 24px;
-  color: #fff; /* Text color */
+  color: #fff;
 }
 
-/* Apply styles to the summary */
 .summary {
+  padding-top: 10px;
   text-align: justify;
-  height: auto; /* Adjust the height as needed */
-  margin-top: 75px; /* Adjust the margin-top for spacing */
-  background-color: #333; /* Dark background color */
+  height: auto;
+  margin-top: 78px;
+  background-color: #52264f; /* Darker Purple */
   padding: 20px;
-  border: 1px solid #444; /* Darker border color */
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)
+  border: 1px; /* Darkest Purple */
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #error {
-  color: #FF5733; /* Red-Orange */
+  color: #FF5733; /* Coral */
   font-weight: bold;
 }
 
@@ -61,7 +61,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 2em;
-  color: #fff; /* Text color */
+  color: #fff;
 }
 
 .barOverflow {
@@ -79,45 +79,69 @@ body {
   height: 320px;
   border-radius: 50%;
   box-sizing: border-box;
-  border-width: 40px; /* Set the border width */
-  border-style: solid; /* Set the border style to solid */
-  border-color: #dedbde; /* Initially, set the border color to transparent */
+  border-width: 40px;
+  border-style: solid;
+  border-color: #1E0A26; /* Darkest Purple */
 }
 
-/* Apply styles to the summary content */
 #summery {
   font-size: 16px;
-  color: #ccc; /* Light gray text color */
+  color: #ffffff;
   line-height: 1.5;
 }
 
 .flex-container {
   height: auto;
-  background-color: #444; /* Darker background color */
+  background-color: #97128c;
   padding: 10px;
-  border: 1px solid #555; /* Darker border color */
-  border-radius: 5px;
+  border-radius: 10px;
+  border: 1px; /* Darker Purple */
+  border-radius: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* CSS Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-/* input  */
 .inputfield {
   padding: 10px;
-  width: 70%;
+  width: 83%;
+  height: auto;
   border-radius: 30px;
-  background: #3f263f;
-  opacity: 80%;  
+  background: #000000; /* Darkest Purple */
+  opacity: 80%;
 }
 
 .input-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   height: auto;
-  background-color: #444;
-  padding: 10px;
-  border: 1px solid #555;
+  background-color: #9043ff; /* Darker Purple */
+  padding: 5px;
+  border: 1px; /* Primary Dark Purple */
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: fixed;
-  bottom: 0; /* This will fix it at the bottom */
-  width: 100%; /* To make it span the entire width */
+  bottom: 0;
+  width: 100%;
+}
+
+/* Style the button */
+#sendButton {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+#sendButton img {
+  width: 35px;
+  height: 35px;
 }

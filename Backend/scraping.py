@@ -18,7 +18,9 @@ def get_amazon_product_data(url):
         soup = BeautifulSoup(response.content, "html.parser")
         
         # Scrape product title(1)
-        product_title = soup.select_one("span#productTitle").get_text(strip=True)
+        product_title = soup.select_one("span#productTitle")
+        if product_title:
+            product_title = product_title.get_text(strip=True)
         
         #Scrape product version selection(2)
         product_v = {}
