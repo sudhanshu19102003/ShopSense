@@ -1,5 +1,5 @@
 body {
-  background: #2c232b; /* Dark background */
+  background: #610DE3; /* Dark background */
   font-family: Arial, sans-serif;
   width: 355px;
   height: 600px;
@@ -10,9 +10,8 @@ body {
 
 .title {
   text-align: center;
-  border-radius: 15px;
   margin-bottom: 10px;
-  background-color: #f700ff; /* Primary Dark Purple */
+  background-color: #610DE3; /* Primary Dark Purple */
   height: 75px;
   width: 100%;
   position: fixed;
@@ -32,11 +31,13 @@ body {
   padding-top: 10px;
   text-align: justify;
   height: auto;
-  margin-top: 78px;
-  background-color: #52264f; /* Darker Purple */
+  width: 100%;
+  margin-top: 75px;
+  background-color: #FFE2E2; /* Darker Purple */
   padding: 20px;
-  border: 1px; /* Darkest Purple */
-  border-radius: 10px;
+  border: 5px; /* Darkest Purple */
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -92,11 +93,11 @@ body {
 
 .flex-container {
   height: auto;
-  background-color: #97128c;
+  background-color: #FF5959;
   padding: 10px;
-  border-radius: 10px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
   border: 1px; /* Darker Purple */
-  border-radius: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -112,7 +113,7 @@ body {
   width: 83%;
   height: auto;
   border-radius: 30px;
-  background: #000000; /* Darkest Purple */
+  background: #ffffff; /* Darkest Purple */
   opacity: 80%;
 }
 
@@ -123,7 +124,7 @@ body {
   height: auto;
   background-color: #9043ff; /* Darker Purple */
   padding: 5px;
-  border: 1px; /* Primary Dark Purple */
+  border: 5px; /* Primary Dark Purple */
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: fixed;
@@ -145,3 +146,58 @@ body {
   width: 35px;
   height: 35px;
 }
+
+/* Chat Container */
+.container {
+  padding: 5px;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Response Container */
+.response {
+  margin-bottom: 65px;
+  align-self: flex-start;
+  padding: 10px;
+  text-align: left;
+  width: auto;
+  background-color: #FFE2E2;
+  border: 5px;
+  border-radius: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Input Container */
+.input {
+  align-self: flex-end;
+  padding: 10px;
+  text-align: right;
+  width: auto;
+  background-color: #FF5959;
+  border-radius: 15px;
+  border: 1px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
+/* Skeleton Loading Styles */
+.skeleton-loading {
+  width: 100%;
+  height: 45px; /* Adjust the height to match your design */
+  background: linear-gradient(90deg, #610DE3 25%, #c4b9d6 50%, #610DE3 75%); /* Match the title background color */
+  background-size: 200% 100%;
+  animation: loading 2s infinite;
+  margin-top: 10px; /* Adjust this margin to create space between the title and loading effect */
+  color: transparent; /* Hide any text content during loading */
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+

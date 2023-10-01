@@ -1,4 +1,5 @@
 // Wait for the DOM to be fully loaded
+var chat_data
 document.addEventListener("DOMContentLoaded", function () {
     // Get the current tab's URL using the Chrome tabs API
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -17,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
             .then(response => response.json())
             .then(result => {
+                chat_data = result["data"]
                 // Displaying the result in the paragraph with id "title"
                 document.getElementById("title").innerText = result["product_title"];
                 // Displaying the result in the paragraph with id "summary"
@@ -51,25 +53,29 @@ document.addEventListener("DOMContentLoaded", function () {
         if (inputValue.trim() !== "") {
             // Create a new div element and add it to the container
             const newDiv = document.createElement("div");
-            newDiv.className = "summary"
+            newDiv.className = "input"
             newDiv.textContent = inputValue;
             container.appendChild(newDiv);
             textInput.value = "";
 
+            const data={
+                question: inputValue,
+                context: chat_data
+            }
             // Send the input to the Flask server
-            fetch("/chat", {
+            fetch("http://127.0.0.1:5000/chat", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ input: inputValue }),
+                body: JSON.stringify(data),
             })
                 .then(response => response.json())
                 .then(data => {
                     // Display the server's response in a new div
                     const responseDiv = document.createElement("div");
-                    responseDiv.className = "flex-container"
-                    responseDiv.textContent = "Server Response: " + data.response;
+                    responseDiv.className = "response"
+                    responseDiv.textContent = data.response;
                     container.appendChild(responseDiv);
                 })
                 .catch(error => {

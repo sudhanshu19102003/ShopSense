@@ -1,6 +1,6 @@
 $apiUrl = "http://127.0.0.1:5000/scrape"
 
-$jsonData = @{"website_link" = "https://amzn.eu/d/090OYp3"} | ConvertTo-Json
+$jsonData = @{"Title" = "Dell 15 Laptop, Intel Core i5-1135G7 Processor/ 8GB/ 1TB+256GB SSD/15.6"(39.62cm) FHD with Comfort View, Mobile Connect/Windows 11 + MSO'21/15 Month McAfee/Spill-Resistant Keyboard/Black Color/ 1.69kg"} | ConvertTo-Json
 
 $headers = @{"Content-Type" = "application/json"}
 
@@ -8,4 +8,21 @@ $response = Invoke-WebRequest -Uri $apiUrl -Method Post -Body $jsonData -Headers
 
 $responseContent = $response.Content
 
+Write-Host $responseContent >> test.json
+
+
+# Define the API URL
+$apiUrl = "http://127.0.0.1:5000/chat"
+$contextData = @{
+    "context" = "Paris is the capital of France."
+}
+$jsonData = @{
+    "question" = "What is the capital of France?"
+    "context" = $contextData
+} | ConvertTo-Json
+$headers = @{
+    "Content-Type" = "application/json"
+}
+$response = Invoke-WebRequest -Uri $apiUrl -Method Post -Body $jsonData -Headers $headers
+$responseContent = $response.Content
 Write-Host $responseContent >> test.json

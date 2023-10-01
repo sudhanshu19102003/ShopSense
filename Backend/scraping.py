@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from llm import generate_title,summarizer
+from llm import generate_title,summarizer,chat
 from urllib.parse import urlparse, urlunparse
 from comment_analyzer import predict_average_rating
 
@@ -87,24 +87,33 @@ def get_amazon_product_data(url):
             product_description = product_description_div.get_text(strip=True)
         else:
             print("no_product_description")
-        data={
+        llm_data={
             "product_title": product_title,
             "about_section": about_text,
             "product_description": product_description
         }
-        return {
-            "product_title": generate_title(product_title),
+        chat_data={
+            "product_title": product_title,
             "product_V": product_v,
             "about_section": about_text,
             "technical_details": Technical_Details,
-            "top_comments": str(predict_average_rating(formated_rating)),
-            "product_description": summarizer(data)
+            "product_description": product_description
         }
+        output={
+            "product_title": generate_title(product_title),
+            "top_comments": str(predict_average_rating(formated_rating)),
+            "product_description": summarizer(llm_data),
+            "data": chat_data
+        }
+        return output
     
     else:
         print("Failed to retrieve data. Status code:", response.status_code)
         return None
-    
+def chat_answer(data):
+    return chat(data)
+
+
 def shorten_amazon_url(original_url):
     parsed_url = urlparse(original_url)
     path_segments = parsed_url.path.split('/')
