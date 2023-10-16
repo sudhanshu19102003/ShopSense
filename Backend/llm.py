@@ -16,7 +16,7 @@ def answer(question, context, max_length, min):
     for chunk in chunks:
         # Combine the question and chunk of context
         input_text = f"{question}: \ncontext:{str(chunk)}\nSolution:"
-        print(input_text)
+        #print(input_text)
 
         # Tokenize and generate the answer for this chunk
         input_ids = tokenizer(input_text, return_tensors="pt").input_ids.to("cuda")
