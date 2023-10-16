@@ -1,6 +1,6 @@
 $apiUrl = "http://127.0.0.1:5000/scrape"
 
-$jsonData = @{"Title" = "Dell 15 Laptop, Intel Core i5-1135G7 Processor/ 8GB/ 1TB+256GB SSD/15.6"(39.62cm) FHD with Comfort View, Mobile Connect/Windows 11 + MSO'21/15 Month McAfee/Spill-Resistant Keyboard/Black Color/ 1.69kg"} | ConvertTo-Json
+$jsonData = @{"website_link"="https://www.amazon.in/dp/B08C4Z69LN/?language=hi_IN"} | ConvertTo-Json
 
 $headers = @{"Content-Type" = "application/json"}
 

@@ -6,27 +6,28 @@ model = T5ForConditionalGeneration.from_pretrained("google/flan-t5-base")
 model.to("cuda")  # Move the model to the GPU if available
 
 def answer(question, context, max_length, min):
-    # Split the context into smaller chunks to fit within the model's maximum sequence length
-    max_seq_length = 512  # Maximum sequence length supported by the model
-    chunks = [context[i:i+max_seq_length] for i in range(0, len(context), max_seq_length)]
-
-    # Initialize an empty answer
-    combined_answer = ""
-
-    for chunk in chunks:
-        # Combine the question and chunk of context
-        input_text = f"{question}: \ncontext:{str(chunk)}\nSolution:"
-        #print(input_text)
-
-        # Tokenize and generate the answer for this chunk
-        input_ids = tokenizer(input_text, return_tensors="pt").input_ids.to("cuda")
-        outputs = model.generate(input_ids, max_length=max_length, min_length=min)
-        answer = tokenizer.decode(outputs[0], skip_special_tokens=True)
-        # Append the answer for this chunk to the combined answer
-        combined_answer += answer
-        #combined_answer=answer("structure to answer properly:", combined_answer, max_length, min)
+    if question or context is not None:
+        # Split the context into smaller chunks to fit within the model's maximum sequence length
+        max_seq_length = 512  # Maximum sequence length supported by the model
+        chunks = [context[i:i+max_seq_length] for i in range(0, len(context), max_seq_length)]
     
-    return combined_answer
+        # Initialize an empty answer
+        combined_answer = ""
+    
+        for chunk in chunks:
+            # Combine the question and chunk of context
+            input_text = f"{question}: \ncontext:{str(chunk)}\nSolution:"
+            #print(input_text)
+    
+            # Tokenize and generate the answer for this chunk
+            input_ids = tokenizer(input_text, return_tensors="pt").input_ids.to("cuda")
+            outputs = model.generate(input_ids, max_length=max_length, min_length=min)
+            answer = tokenizer.decode(outputs[0], skip_special_tokens=True)
+            # Append the answer for this chunk to the combined answer
+            combined_answer += answer
+            #combined_answer=answer("structure to answer properly:", combined_answer, max_length, min)
+        
+        return combined_answer
 
 def generate_title(data):
     question = """For crafting shorter, generic product titles, start with a simple descriptor that captures the product's purpose, followed by the brand name or identifier and any crucial specifications. Strive for brevity and clarity to make the title easily applicable to various products. \n
@@ -46,7 +47,8 @@ def generate_title(data):
     Example 4
 
     """
-    return answer(question, data, 15,1)
+    if data is not None:
+        return answer(question, data, 15,1)
 
 def format_for_llm(product_info):
     prompt = "this is the product information"
@@ -56,13 +58,15 @@ def format_for_llm(product_info):
     return prompt
 
 def summarizer(data):
-    question = "Explain about the product in short with the importent points"
-    data=format_for_llm(data)
-    return answer(question, data, 1000,1)
+    if data is not None:
+        question = "Explain about the product in short with the importent points"
+        data=format_for_llm(data)
+        return answer(question, data, 1000,1)
 
 def chat(data):
-    question = f"""Answer the question based on the context below. Keep the answer short. Respond "Unsure about answer" if not sure about the answer. \n
-                Question: {data.get("question")}"""
-    context = format_for_llm(data.get("context"))
-    output=answer(context,question,50,3)
-    return output
+    if data is not None:
+        question = f"""Answer the question based on the context below. Keep the answer short. Respond "Unsure about answer" if not sure about the answer. \n
+                    Question: {data.get("question")}"""
+        context = format_for_llm(data.get("context"))
+        output=answer(context,question,50,3)
+        return output
