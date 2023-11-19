@@ -1,12 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
-import title
+from llm import generate_title,summarizer,chat
 from urllib.parse import urlparse, urlunparse
+from comment_analyzer import predict_average_rating
 
 
 
 def get_amazon_product_data(url):
-    #url=shorten_amazon_url(url)
+    url=shorten_amazon_url(url)
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"}
 
@@ -17,10 +18,9 @@ def get_amazon_product_data(url):
         soup = BeautifulSoup(response.content, "html.parser")
         
         # Scrape product title(1)
-        product_title = soup.select_one("span#productTitle").get_text(strip=True)
+        product_title = soup.select_one("span#productTitle")
         if product_title:
-            product_title = title.generate_title(product_title.get_text())
-            print(product_title)
+            product_title = product_title.get_text(strip=True)
         
         #Scrape product version selection(2)
         product_v = {}
@@ -65,6 +65,19 @@ def get_amazon_product_data(url):
             top_comments = [comment.get_text().strip() for comment in top_comments[:10]]
         else:
             print("no_top_comments")
+
+        # Scrape ratings
+        ratings = soup.select("i[data-hook='review-star-rating'] span.a-icon-alt")
+        if ratings:
+            ratings = [int(rating.get_text().strip()[0]) for rating in ratings[:10]]
+        else:
+            print("no_ratings")
+
+        if ratings and top_comments:
+            formated_rating = []
+            for comment, rating in zip(top_comments, ratings):
+                formated_rating.append([comment, rating])
+    
         
         # Find the div element with id="productDescription"(6)
         product_description_div = soup.find('div', id='productDescription')
@@ -74,20 +87,33 @@ def get_amazon_product_data(url):
             product_description = product_description_div.get_text(strip=True)
         else:
             print("no_product_description")
-
-        return {
+        llm_data={
+            "product_title": product_title,
+            "about_section": about_text,
+            "product_description": product_description
+        }
+        chat_data={
             "product_title": product_title,
             "product_V": product_v,
             "about_section": about_text,
             "technical_details": Technical_Details,
-            "top_comments": top_comments,
             "product_description": product_description
         }
+        output={
+            "product_title": generate_title(product_title),
+            "top_comments": str(predict_average_rating(formated_rating)),
+            "product_description": summarizer(llm_data),
+            "data": chat_data
+        }
+        return output
     
     else:
         print("Failed to retrieve data. Status code:", response.status_code)
         return None
-    
+def chat_answer(data):
+    return chat(data)
+
+
 def shorten_amazon_url(original_url):
     parsed_url = urlparse(original_url)
     path_segments = parsed_url.path.split('/')

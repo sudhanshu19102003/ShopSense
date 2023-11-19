@@ -1,8 +1,9 @@
-$(document).ready(function () {
-  // Your jQuery code here
-  $(".progress").each(function () {
-      var $bar = $(this).find(".bar");
-      var $val = $(this).find("#rating");
+document.addEventListener("DOMContentLoaded", function () {
+  var $bar = $(".progress .bar");
+  var $val = $(".progress #rating");
+
+  // Function to update the progress bar based on the rating value
+  function updateProgressBar() {
       var rating = parseFloat($val.text());
       var perc = (rating / 5) * 100;
 
@@ -16,18 +17,26 @@ $(document).ready(function () {
                   var color = getColorForPercentage(p);
                   $bar.css({
                       transform: "rotate(" + (45 + p * 1.8) + "deg)",
-                      borderRightColor: color, // Change border color
-                      borderBottomColor: color // Change border color
+                      borderRightColor: color,
+                      borderBottomColor: color,
                   });
-                  $val.text((p / 20).toFixed(1)); // Convert percentage to rating value
-              }
+                  $val.text((p / 20).toFixed(1));
+              },
           }
       );
-  });
+  }
 
   // Function to get a color based on the percentage value
   function getColorForPercentage(percentage) {
-      var hue = (percentage / 100) * 120; // 0% = red, 100% = green (HSL color model)
+      var hue = (percentage / 100) * 120;
       return "hsl(" + hue + ", 100%, 50%)";
   }
+
+  // Initial setup
+  updateProgressBar();
+
+  // Listen for the custom "ratingUpdated" event
+  document.getElementById("rating").addEventListener("ratingUpdated", function () {
+      updateProgressBar();
+  });
 });

@@ -9,13 +9,13 @@
 </head>
 <body>
   <div class="title">
-  <h2 id="title">Title..</h2>
+  <h2 id="title">
+    <div class="skeleton-loading"></div>
+  </h2>
   </div>
 
   <div class="summary">
-  <p id="summary">“Summery” is an adjective that means something is suitable for or typical of summer. For example, you might describe a dress as “summery” if it is light and suitable for summer. Something that is “summery” might have qualities like sunshine, brightness, freshness, airiness, lightness, or a lack of stress. For example, a drink with a “summery” taste might be sweet, cold, and refreshing.
-    The word “summery” was first used in the 15th century. It is pronounced “sŭm′ə-rē”.</p>
-  <p id="summery"></p>
+  <p id="summary"></p>
   </div>
 
 
@@ -24,15 +24,22 @@
       <div class="barOverflow">
         <div class="bar"></div>
       </div>
-      <span id="rating">1.5</span>
+      <span id="rating">5</span>
     </div>
     <center><h3>Reliability Score</h3></center>
   </div>
-  <div class="input-container">
-    <input class="inputfield" type="text">
-  </div>
-  <script src="boot.js"></script>
+  <div class="container" id="container">
+  <div id="error"></div>
 
+
+  </div>
+  <div class="input-container">
+    <input class="inputfield" type="text" id="inputfield">
+    <button id="sendButton">
+      <img src="send_icon.png" alt="Send Icon">
+    </button>
+
+  </div>
 
 </body>
 </html>

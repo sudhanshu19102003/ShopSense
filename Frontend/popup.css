@@ -1,52 +1,48 @@
 body {
-  background-color: #1e1e1e; /* Dark background color */
-  color: #fff; /* Text color */
-  font-family: Arial, sans-serif; /* Choose an appropriate font-family */
+  background: #610DE3; /* Dark background */
+  font-family: Arial, sans-serif;
   width: 355px;
   height: 600px;
-  margin: 0; /* Remove default margin */
-  padding: 0; /* Remove default padding */
+  margin: 0;
+  padding: 0;
   overflow-x: hidden;
 }
 
-/* Apply styles to the title */
 .title {
   text-align: center;
   margin-bottom: 10px;
-  background-color: #a300cc; /* A user-friendly blue color */
-  height: auto; /* Adjust the height as needed */
-  width: 100%; /* Make it full-width */
-  position: fixed; /* Fix it at the top */
+  background-color: #610DE3; /* Primary Dark Purple */
+  height: 75px;
+  width: 100%;
+  position: fixed;
   top: 0;
   left: 0;
-  z-index: 1000; /* Ensure it's above other content */
-  color: #fff; /* Text color */
+  z-index: 1000;
+  color: #fff;
 }
 
 #title {
+  padding: 10px;
   font-size: 24px;
-  color: #fff; /* Text color */
+  color: #fff;
 }
 
-/* Apply styles to the summary */
 .summary {
+  padding-top: 10px;
   text-align: justify;
-  height: auto; /* Adjust the height as needed */
-  margin-top: 75px; /* Adjust the margin-top for spacing */
-  background-color: #333; /* Dark background color */
+  height: auto;
+  width: 100%;
+  margin-top: 75px;
+  background-color: #FFE2E2; /* Darker Purple */
   padding: 20px;
-  border: 1px solid #444; /* Darker border color */
-  border-radius: 5px;
+  border: 5px; /* Darkest Purple */
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-#status {
-  color: #4CAF50; /* Green */
-  font-weight: bold;
-}
-
 #error {
-  color: #FF5733; /* Red-Orange */
+  color: #FF5733; /* Coral */
   font-weight: bold;
 }
 
@@ -66,7 +62,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 2em;
-  color: #fff; /* Text color */
+  color: #fff;
 }
 
 .barOverflow {
@@ -84,45 +80,142 @@ body {
   height: 320px;
   border-radius: 50%;
   box-sizing: border-box;
-  border-width: 40px; /* Set the border width */
-  border-style: solid; /* Set the border style to solid */
-  border-color: #dedbde; /* Initially, set the border color to transparent */
+  border-width: 40px;
+  border-style: solid;
+  border-color: #1E0A26; /* Darkest Purple */
 }
 
-/* Apply styles to the summary content */
 #summery {
   font-size: 16px;
-  color: #ccc; /* Light gray text color */
+  color: #ffffff;
   line-height: 1.5;
 }
 
 .flex-container {
   height: auto;
-  background-color: #444; /* Darker background color */
+  background-color: #FF5959;
   padding: 10px;
-  border: 1px solid #555; /* Darker border color */
-  border-radius: 5px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border: 1px; /* Darker Purple */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* CSS Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-/* input  */
 .inputfield {
   padding: 10px;
-  width: 70%;
+  width: 83%;
+  height: auto;
   border-radius: 30px;
-  background: #3f263f;
-  opacity: 80%;  
+  background: #ffffff; /* Darkest Purple */
+  opacity: 80%;
 }
 
 .input-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   height: auto;
-  background-color: #444;
-  padding: 10px;
-  border: 1px solid #555;
+  background-color: #9043ff; /* Darker Purple */
+  padding: 5px;
+  border: 5px; /* Primary Dark Purple */
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: fixed;
-  bottom: 0; /* This will fix it at the bottom */
-  width: 100%; /* To make it span the entire width */
+  bottom: 0;
+  width: 100%;
+}
+
+/* Style the button */
+#sendButton {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+#sendButton img {
+  width: 35px;
+  height: 35px;
+}
+
+/* Chat Container */
+.container {
+  padding: 5px;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Response Container */
+.response {
+  margin-bottom: 65px;
+  align-self: flex-start;
+  padding: 10px;
+  text-align: left;
+  width: auto;
+  background-color: #FFE2E2;
+  border: 5px;
+  border-radius: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Input Container */
+.input {
+  align-self: flex-end;
+  padding: 10px;
+  text-align: right;
+  width: auto;
+  background-color: #FF5959;
+  border-radius: 15px;
+  border: 1px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
+/* Skeleton Loading Styles */
+.skeleton-loading {
+  width: 100%;
+  height: 45px; /* Adjust the height to match your design */
+  background: linear-gradient(90deg, #610DE3 25%, #c4b9d6 50%, #610DE3 75%); /* Match the title background color */
+  background-size: 200% 100%;
+  animation: loading 2s infinite;
+  margin-top: 10px; /* Adjust this margin to create space between the title and loading effect */
+  color: transparent; /* Hide any text content during loading */
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton-loading-s {
+  width: 100%;
+  height: 65px; /* Adjust the height to match your design */
+  background: linear-gradient(90deg, #FFE2E2 25%, #746868 50%, #FFE2E2 75%); /* Match the title background color */
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  margin-top: 10px; /* Adjust this margin to create space between the title and loading effect */
+  color: transparent; /* Hide any text content during loading */
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
