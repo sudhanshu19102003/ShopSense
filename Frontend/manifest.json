@@ -13,7 +13,7 @@
       "default_popup": "popup.html"
     },
     "permissions": [
-      "activeTab"
+      "storage", "declarativeContent", "activeTab", "scripting"
     ],
     "host_permissions": [
       "*://*/*"

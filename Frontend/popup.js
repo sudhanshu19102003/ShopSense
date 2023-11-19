@@ -1,12 +1,27 @@
 // Wait for the DOM to be fully loaded
 var chat_data
 document.addEventListener("DOMContentLoaded", function () {
-    // Get the current tab's URL using the Chrome tabs API
+    // Get the current tab's HTML content using the Chrome tabs API
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        const link = tabs[0].url; // Get the URL of the active tab
-        const data = {
-            website_link: link
-        };
+        chrome.scripting.executeScript({
+            target: { tabId: tabs[0].id },
+            function: (tab) => {
+                // Injected code to fetch HTML content
+                const htmlContent = document.documentElement.outerHTML;
+                return htmlContent;
+            },
+        }, (result) => {
+            if (chrome.runtime.lastError) {
+                console.error(chrome.runtime.lastError);
+                return;
+            }
+
+            const htmlContent = result[0].result;
+
+            const data = {
+                website_html: htmlContent
+            };
+
 
         // Sending a POST request to the server
         fetch("http://127.0.0.1:5000/scrape", {
@@ -83,4 +98,5 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
         }
     });
+});
 });

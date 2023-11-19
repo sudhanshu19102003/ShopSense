@@ -22,8 +22,9 @@ body {
 }
 
 #title {
+  font-family: Verdana, Arial, sans-serif;
   padding: 10px;
-  font-size: 24px;
+  font-size: 20px;
   color: #fff;
 }
 
@@ -57,6 +58,7 @@ body {
 }
 
 #rating {
+  font-family: Verdana, Arial, sans-serif;
   position: absolute;
   top: 65%;
   left: 50%;
@@ -85,11 +87,14 @@ body {
   border-color: #1E0A26; /* Darkest Purple */
 }
 
-#summery {
-  font-size: 16px;
-  color: #ffffff;
+#summary {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 12px;
+  color: #000000;
   line-height: 1.5;
+  word-spacing: -1px;
 }
+
 
 .flex-container {
   height: auto;
@@ -157,6 +162,7 @@ body {
 
 /* Response Container */
 .response {
+  font-family: Verdana, Arial, sans-serif;
   margin-bottom: 65px;
   align-self: flex-start;
   padding: 10px;
@@ -170,6 +176,7 @@ body {
 
 /* Input Container */
 .input {
+  font-family: Verdana, Arial, sans-serif;
   align-self: flex-end;
   padding: 10px;
   text-align: right;
